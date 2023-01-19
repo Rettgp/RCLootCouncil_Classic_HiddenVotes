@@ -1,6 +1,6 @@
 --- Adds and changes button groups for Classic
 local _, addon = ...
-local LC = LibStub("AceLocale-3.0"):GetLocale("RCLootCouncil_Classic")
+local LC = LibStub("AceLocale-3.0"):GetLocale("RCLootCouncil_Classic_HiddenVotes")
 
 -- Remove "Azerite Armor" as a category for more buttons
 addon.OPT_MORE_BUTTONS_VALUES.AZERITE = nil

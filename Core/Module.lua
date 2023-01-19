@@ -4,7 +4,7 @@ local ClassicModule = addon:NewModule("RCClassic", "AceHook-3.0", "AceEvent-3.0"
 local L = LibStub("AceLocale-3.0"):GetLocale("RCLootCouncil")
 
 function ClassicModule:OnInitialize()
-   self.version = GetAddOnMetadata("RCLootCouncil_Classic", "Version")
+   self.version = GetAddOnMetadata("RCLootCouncil_Classic_HiddenVotes", "Version")
    self.tVersion = nil
    self.debug = false
    self.nnp = false
@@ -51,10 +51,10 @@ function ClassicModule:OnEnable ()
    addon.moduleVerCheckDisplayed[self.baseName] = true
 end
 
-function ClassicModule:RegisterAddonComms ()
+function ClassicModule:RegisterAddonComms()
    self:DoCommsCompressFix()
-   addon:RegisterComm("RCLootCouncil")
-   addon:RegisterComm("RCLCv")
+   addon:RegisterComm("RCLootCouncil_HiddenVotes")
+   addon:RegisterComm("RCLCv_HiddenVotes")
 end
 
 -- v0.9.x: Due to the change in registering comms, a /reload can cause

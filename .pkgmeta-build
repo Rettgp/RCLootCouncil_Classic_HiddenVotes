@@ -1,4 +1,4 @@
-package-as: RCLootCouncil_Classic
+package-as: RCLootCouncil_Classic_HiddenVotes
 
 manual-changelog:
     filename: Changelog.md

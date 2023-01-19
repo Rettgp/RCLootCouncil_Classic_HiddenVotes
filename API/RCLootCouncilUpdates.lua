@@ -3,7 +3,7 @@ local _, addon = ...
 local Classic = addon:GetModule("RCClassic")
 local private = {}
 local L = LibStub("AceLocale-3.0"):GetLocale("RCLootCouncil")
-local LC = LibStub("AceLocale-3.0"):GetLocale("RCLootCouncil_Classic")
+local LC = LibStub("AceLocale-3.0"):GetLocale("RCLootCouncil_Classic_HiddenVotes")
 local LibDialog = LibStub("LibDialog-1.0")
 
 
@@ -47,7 +47,7 @@ addon.INVTYPE_Slots.INVTYPE_RANGEDRIGHT = "RangedSlot"
 addon.INVTYPE_Slots.INVTYPE_THROWN = "RangedSlot"
 
 -- Update logo location
-addon.LOGO_LOCATION = "Interface\\AddOns\\RCLootCouncil_Classic\\RCLootCouncil\\Media\\rc_logo"
+addon.LOGO_LOCATION = "Interface\\AddOns\\RCLootCouncil_Classic_HiddenVotes\\RCLootCouncil\\Media\\rc_logo"
 
 -- Ignored Items
 addon.defaults.profile.ignoredItems = {} -- Remove the retail ones

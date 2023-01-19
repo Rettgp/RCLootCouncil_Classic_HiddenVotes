@@ -2,7 +2,7 @@
 local _, addon = ...
 local RCClassic = addon:GetModule("RCClassic")
 local L = LibStub("AceLocale-3.0"):GetLocale("RCLootCouncil")
-local LC = LibStub("AceLocale-3.0"):GetLocale("RCLootCouncil_Classic")
+local LC = LibStub("AceLocale-3.0"):GetLocale("RCLootCouncil_Classic_HiddenVotes")
 
 local old_options_func = addon.OptionsTable
 function addon:OptionsTable ()
