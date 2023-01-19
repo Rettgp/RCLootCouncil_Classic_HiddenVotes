@@ -13,37 +13,37 @@ function addon:SendCommand (target, command, ...)
 
    if target == "group" then
 		if IsInRaid() then -- Raid
-			self:SendCommMessage("RCLootCouncil", toSend, self.Utils:IsInNonInstance() and "INSTANCE_CHAT" or "RAID")
+			self:SendCommMessage("RCLC_HV", toSend, self.Utils:IsInNonInstance() and "INSTANCE_CHAT" or "RAID")
 		elseif IsInGroup() then -- Party
-			self:SendCommMessage("RCLootCouncil", toSend, self.Utils:IsInNonInstance() and "INSTANCE_CHAT" or "PARTY")
+			self:SendCommMessage("RCLC_HV", toSend, self.Utils:IsInNonInstance() and "INSTANCE_CHAT" or "PARTY")
 		else--if self.testMode then -- Alone (testing)
-			self:SendCommMessage("RCLootCouncil", toSend, "WHISPER", self.playerName)
+			self:SendCommMessage("RCLC_HV", toSend, "WHISPER", self.playerName)
 		end
 
 	elseif target == "guild" then
-		self:SendCommMessage("RCLootCouncil", toSend, "GUILD")
+		self:SendCommMessage("RCLC_HV", toSend, "GUILD")
 
 	else
 		if self:UnitIsUnit(target,"player") then -- If target == "player"
-			self:SendCommMessage("RCLootCouncil", toSend, "WHISPER", self.playerName)
+			self:SendCommMessage("RCLC_HV", toSend, "WHISPER", self.playerName)
 		else
 			-- We cannot send "WHISPER" to a crossrealm player
 			if target:find("-") then
 				if target:find(self.realmName) then -- Our own realm, just send it
-					self:SendCommMessage("RCLootCouncil", toSend, "WHISPER", target)
+					self:SendCommMessage("RCLC_HV", toSend, "WHISPER", target)
 				else -- Get creative
 					-- Remake command to be "xrealm" and put target and command in the table
 					-- See "RCLootCouncil:HandleXRealmComms()" for more info
 					toSend = self:Serialize("xrealm", {target, command, ...})
 					if GetNumGroupMembers() > 0 then -- We're in a group
-						self:SendCommMessage("RCLootCouncil", toSend, self.Utils:IsInNonInstance() and "INSTANCE_CHAT" or "RAID")
+						self:SendCommMessage("RCLC_HV", toSend, self.Utils:IsInNonInstance() and "INSTANCE_CHAT" or "RAID")
 					else -- We're not, probably a guild verTest
-						self:SendCommMessage("RCLootCouncil", toSend, "GUILD")
+						self:SendCommMessage("RCLC_HV", toSend, "GUILD")
 					end
 				end
 
 			else -- Should also be our own realm
-				self:SendCommMessage("RCLootCouncil", toSend, "WHISPER", target)
+				self:SendCommMessage("RCLC_HV", toSend, "WHISPER", target)
 			end
 		end
 	end
@@ -53,7 +53,7 @@ end
 function addon:SendCommandModified (prefix, serializedMsg, channel, target, prio, ...)
 	local compressed = LD:CompressDeflate(serializedMsg)
    local toSend = LD:EncodeForWoWAddonChannel(compressed)
-	self:SendCommMessage(prefix, toSend, channel, target, prio, ...)
+	self:SendCommMessage("RCLC_HV", toSend, channel, target, prio, ...)
 end
 
 local function decompressor (data)
@@ -86,11 +86,12 @@ end
 
 local function OnCommReceived (self, origHandler, prefix, compressedMessage, distri, sender)
 	local serializedMsg = decompressor(compressedMessage)
+	
 	-- TODO: Remove when integrating v3.0.
-	if prefix == "RCLCv" then
+	if prefix == "RCLCv_HV" then
 		handleRCLCvComms(serializedMsg)
 	else
-		origHandler(self, prefix, serializedMsg, distri, sender)
+		origHandler(self, "RCLootCouncil", serializedMsg, distri, sender)
 	end
 end
 

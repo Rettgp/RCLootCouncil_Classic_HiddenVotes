@@ -3,7 +3,10 @@ local _, addon = ...
 local Classic = addon:GetModule("RCClassic")
 local VotingFrame = addon:GetModule("RCVotingFrame")
 local SessionFrame = addon:GetModule("RCSessionFrame")
+local VersionCheck = addon:GetModule("RCVersionCheck")
 local HistoryFrame = addon:GetModule("RCLootHistory")
+local MasterLooter = addon:GetModule("RCLootCouncilML")
+local TradeUI = addon:GetModule("RCTradeUI")
 local hooks = {}
 
 function Classic:DoHooks ()
@@ -55,6 +58,8 @@ tinsert(hooks, {
    func = function()
       -- Call original
       Classic.hooks[VotingFrame].OnEnable(VotingFrame)
+      VotingFrame:UnregisterComm("RCLootCouncil")
+      VotingFrame:RegisterComm("RCLC_HV")
       VotingFrame.frame.lootStatus:Hide()
       VotingFrame.frame.lootStatus = nil
    end,
@@ -130,5 +135,49 @@ tinsert(hooks, {
    ref = "Hide",
    func = function(self)
       self:ClearAllPoints()
+   end
+})
+
+-- Override registering comms on RCLootCouncil core
+tinsert(hooks, {
+   object = addon,
+   ref = "RegisterComms",
+   type = "raw",
+   func = function(self)
+      self:RegisterComm("RCLC_HV")
+      self:RegisterComm("RCLCv_HV")
+   end
+})
+
+tinsert(hooks, {
+   object = MasterLooter,
+   ref = "OnEnable",
+   type = "raw",
+   func = function(self)
+      Classic.hooks[MasterLooter].OnEnable(self)
+      self:UnregisterComm("RCLootCouncil")
+      self:RegisterComm("RCLC_HV", "OnCommReceived")
+   end
+})
+
+tinsert(hooks, {
+   object = TradeUI,
+   ref = "OnEnable",
+   type = "raw",
+   func = function(self)
+      Classic.hooks[TradeUI].OnEnable(self)
+      self:UnregisterComm("RCLootCouncil")
+      self:RegisterComm("RCLC_HV")
+   end
+})
+
+tinsert(hooks, {
+   object = VersionCheck,
+   ref = "OnEnable",
+   type = "raw",
+   func = function(self)
+      Classic.hooks[VersionCheck].OnEnable(self)
+      self:UnregisterComm("RCLootCouncil")
+      self:RegisterComm("RCLC_HV")
    end
 })

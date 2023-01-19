@@ -53,8 +53,8 @@ end
 
 function ClassicModule:RegisterAddonComms()
    self:DoCommsCompressFix()
-   addon:RegisterComm("RCLootCouncil")
-   addon:RegisterComm("RCLCv")
+   addon:RegisterComm("RCLC_HV")
+   addon:RegisterComm("RCLCv_HV")
 end
 
 -- v0.9.x: Due to the change in registering comms, a /reload can cause
