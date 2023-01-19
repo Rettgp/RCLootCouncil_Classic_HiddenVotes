@@ -53,8 +53,8 @@ end
 
 function ClassicModule:RegisterAddonComms()
    self:DoCommsCompressFix()
-   addon:RegisterComm("RCLootCouncil_HiddenVotes")
-   addon:RegisterComm("RCLCv_HiddenVotes")
+   addon:RegisterComm("RCLootCouncil")
+   addon:RegisterComm("RCLCv")
 end
 
 -- v0.9.x: Due to the change in registering comms, a /reload can cause
