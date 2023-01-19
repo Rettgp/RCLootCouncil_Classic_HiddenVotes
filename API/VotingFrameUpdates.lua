@@ -21,12 +21,6 @@ function VotingFrame.SetCellVotes(rowFrame, frame, data, cols, row, realrow, col
 	frame:SetScript("OnEnter", function()
          local voters = VotingFrame:GetCandidateData(VotingFrame:GetCurrentSession(), name, "voters")
 
-         -- for i = 1, GetNumGuildMembers() do
-         --    local name, _, rankIndex = GetGuildRosterInfo(i) -- get info from all guild members
-         --    if rankIndex + 1 <= val then -- if the member is the required rank, or above
-         --       tinsert(self.db.profile.council, name) -- then insert them to the council
-         --    end
-         -- end
 		if not addon.mldb.anonymousVoting or (db.showForML and addon.isMasterLooter) then
 				addon:CreateTooltip(L["Voters"], unpack((function ()
 					local ret = {}
