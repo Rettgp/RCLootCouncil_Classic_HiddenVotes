@@ -36,7 +36,7 @@ function VotingFrame.SetCellVotes(rowFrame, frame, data, cols, row, realrow, col
 	frame:SetScript("OnLeave", function() addon:HideTooltip() end)
    local rank_name = addon.guildRank
    local guild_ranks = addon:GetGuildRanks()
-   if guild_ranks and guild_ranks[rank_name] > 4 then
+   if guild_ranks and guild_ranks[rank_name] <= 3 then
       data[realrow].cols[column].value = votes -- Set the value for sorting reasons
       frame.text:SetText(votes)
    else
