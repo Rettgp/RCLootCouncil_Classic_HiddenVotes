@@ -39,6 +39,7 @@ function ClassicModule:OnEnable ()
    local vf = addon:GetModule("RCVotingFrame")
    vf:RemoveColumn("role")
    vf:RemoveColumn("corruption")
+   vf:UpdateColumns()
 
    self:UpdateBlacklist()
 

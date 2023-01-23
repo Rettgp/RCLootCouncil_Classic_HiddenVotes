@@ -44,3 +44,23 @@ function VotingFrame.SetCellVotes(rowFrame, frame, data, cols, row, realrow, col
       data[realrow].cols[column].value = 0 -- Don't background sort when we can't see the votes
    end
 end
+
+function VotingFrame:GetScrollColIndexFromName(colName)
+    for i, v in ipairs(VotingFrame.scrollCols) do
+        if v.colName == colName then
+            return i
+        end
+    end
+end
+
+function VotingFrame:UpdateColumns()
+	local plusonems =
+		{ name = "Wins", DoCellUpdate = self.SetCellPlusoneMS, colName = "Wins", sortnext = self:GetScrollColIndexFromName("response"), width = 30, align = "CENTER", defaultsort = "asc" }
+	table.insert(VotingFrame.scrollCols, plusonems)
+
+    -- self:ResponseSortNext()
+
+    if VotingFrame:GetFrame() then
+        VotingFrame:GetFrame().UpdateSt()
+    end
+end
